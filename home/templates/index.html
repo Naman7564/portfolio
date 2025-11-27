@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Naman Jain | DevOps Engineer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #0b1020;
+      --card: #10192f;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.12);
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --border: #1f2937;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.65);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --transition-fast: 0.2s ease;
+      --transition-med: 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617 52%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    /* Layout */
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.25rem 1.25rem 4rem;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.92),
+        rgba(15, 23, 42, 0.7),
+        transparent
+      );
+      border-bottom: 1px solid rgba(31, 41, 55, 0.7);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: conic-gradient(
+        from 210deg,
+        #22c55e,
+        #4f46e5,
+        #0ea5e9,
+        #a855f7,
+        #22c55e
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
+    }
+
+    .brand-logo span {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #e5e7eb;
+    }
+
+    .brand-text-main {
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      color: #e5e7eb;
+    }
+
+    .brand-text-sub {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.25rem;
+      font-size: 0.88rem;
+    }
+
+    nav a {
+      position: relative;
+      color: var(--text-muted);
+      padding-bottom: 0.1rem;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.15rem;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(to right, #4f46e5, #22c55e);
+      transition: width var(--transition-fast);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: #e5e7eb;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .pill {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 0.35rem 0.85rem;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #e5e7eb;
+      background: radial-gradient(circle at top left, #1d2439, #020617 65%);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.12);
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.6);
+      cursor: pointer;
+      transition: background var(--transition-fast), transform 0.1s ease,
+        box-shadow var(--transition-fast);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(30, 64, 175, 0.65);
+      transform: translateY(-0.5px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.7);
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #eef2ff;
+      background: linear-gradient(135deg, #4f46e5, #22c55e);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+      transition: transform 0.12s ease, box-shadow var(--transition-fast),
+        filter var(--transition-fast);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1.5px) scale(1.01);
+      filter: brightness(1.03);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+    }
+
+    .btn-primary span.arrow {
+      font-size: 1rem;
+      transform: translateY(0.5px);
+    }
+
+    /* Hero */
+
+    main {
+      flex: 1;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 2.4rem;
+      align-items: center;
+      padding-top: 2.4rem;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      padding: 0.25rem 0.9rem 0.25rem 0.25rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top left, #1f2937, #020617 70%);
+    }
+
+    .eyebrow-badge {
+      border-radius: 999px;
+      padding: 0.18rem 0.55rem;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .eyebrow-text {
+      color: var(--text-muted);
+    }
+
+    .hero-title {
+      font-size: clamp(2.2rem, 4vw, 2.9rem);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(to right, #4f46e5, #22c55e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      color: var(--text-muted);
+      max-width: 32rem;
+      font-size: 0.98rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .hero-right {
+      display: grid;
+      gap: 1rem;
+      align-content: flex-start;
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top left, #111827, #020617 70%);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      box-shadow: var(--shadow-soft);
+      padding: 1.1rem 1rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 0.9rem;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(
+        circle at top left,
+        rgba(79, 70, 229, 0.2),
+        transparent 65%
+      );
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .hero-card-main {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .hero-card-text {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .hero-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      border-radius: 999px;
+      padding: 0.16rem 0.55rem;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.85);
+      color: #cbd5f5;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .hero-card-side {
+      position: relative;
+      z-index: 1;
+      border-radius: var(--radius-lg);
+      padding: 0.75rem;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: radial-gradient(
+        circle at top,
+        rgba(15, 118, 110, 0.55),
+        rgba(15, 23, 42, 1) 60%
+      );
+    }
+
+    .metric-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #d1fae5;
+    }
+
+    .metric-value {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-top: 0.1rem;
+    }
+
+    .metric-sub {
+      font-size: 0.75rem;
+      color: #a7f3d0;
+      margin-bottom: 0.4rem;
+    }
+
+    .metric-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.7rem;
+      border-radius: 999px;
+      padding: 0.12rem 0.55rem;
+      background: rgba(6, 78, 59, 0.85);
+      border: 1px solid rgba(16, 185, 129, 0.7);
+      color: #ecfdf5;
+    }
+
+    .metric-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .hero-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+    }
+
+    .hero-strip span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      border: 1px dashed rgba(75, 85, 99, 0.8);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* Sections */
+
+    section {
+      margin-top: 3rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+
+    .section-title span {
+      color: #e5e7eb;
+    }
+
+    .section-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Skills */
+
+    .grid {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top, #020617, #020617 40%, #020617);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      padding: 0.9rem 0.9rem 0.85rem;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.75);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      opacity: 0.35;
+      background: conic-gradient(
+        from 210deg,
+        rgba(79, 70, 229, 0.45),
+        transparent,
+        rgba(34, 197, 94, 0.45),
+        transparent
+      );
+      mix-blend-mode: soft-light;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.35rem;
+    }
+
+    .pill-sm {
+      font-size: 0.72rem;
+      border-radius: 999px;
+      padding: 0.12rem 0.6rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: #d1d5db;
+    }
+
+    /* Experience */
+
+    .timeline {
+      border-left: 1px solid rgba(55, 65, 81, 0.9);
+      margin-left: 0.4rem;
+      padding-left: 1.1rem;
+      display: grid;
+      gap: 1.1rem;
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -1.17rem;
+      top: 0.15rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 5px rgba(34, 197, 94, 0.18);
+    }
+
+    .timeline-role {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .timeline-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+    }
+
+    .timeline-body {
+      font-size: 0.83rem;
+      color: #d1d5db;
+      margin-top: 0.4rem;
+    }
+
+    .timeline-tags {
+      margin-top: 0.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    /* Contact */
+
+    .contact-card {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.6fr);
+      gap: 1rem;
+      align-items: center;
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top left, #111827, #020617 70%);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      padding: 1.2rem 1rem;
+      box-shadow: var(--shadow-soft);
+      margin-top: 0.5rem;
+    }
+
+    .contact-title {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .contact-text {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-bottom: 0.65rem;
+    }
+
+    .contact-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .contact-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 999px;
+      padding: 0.22rem 0.7rem;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: #e5e7eb;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.2rem;
+    }
+
+    .field label {
+      font-size: 0.8rem;
+      color: #e5e7eb;
+    }
+
+    .field input,
+    .field textarea {
+      border-radius: 12px;
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      background: rgba(15, 23, 42, 0.95);
+      padding: 0.45rem 0.7rem;
+      font-size: 0.82rem;
+      color: #e5e7eb;
+      resize: vertical;
+      min-height: 38px;
+      outline: none;
+      transition: border var(--transition-fast), box-shadow var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.5);
+      background: #020617;
+    }
+
+    .field small {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      padding: 1.5rem 1.25rem 2.2rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+      background: radial-gradient(circle at bottom, #020617, #020617 50%);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* Scroll to top */
+
+    .scroll-top {
+      position: fixed;
+      right: 1.2rem;
+      bottom: 1.2rem;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top, #111827, #020617 70%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity var(--transition-med), transform var(--transition-med),
+        visibility var(--transition-med), box-shadow var(--transition-fast);
+      z-index: 30;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .scroll-top:hover {
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    /* Responsive */
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      border-radius: 999px;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.9rem;
+      color: #e5e7eb;
+      cursor: pointer;
+      background-color: rgba(15, 23, 42, 0.85);
+    }
+
+    @media (max-width: 840px) {
+      nav ul {
+        display: none;
+        position: absolute;
+        right: 1.25rem;
+        top: 3rem;
+        flex-direction: column;
+        background: rgba(15, 23, 42, 0.98);
+        border-radius: 14px;
+        border: 1px solid rgba(55, 65, 81, 0.95);
+        padding: 0.65rem 0.7rem;
+        min-width: 9rem;
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+      }
+
+      nav ul.open {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: inline-flex;
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-right {
+        order: -1;
+      }
+
+      .hero-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .contact-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 540px) {
+      .shell {
+        padding-inline: 1rem;
+      }
+
+      .hero-title {
+        font-size: 1.9rem;
+      }
+
+      .grid-3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="brand-logo">
+            <span>NJ</span>
+          </div>
+          <div>
+            <div class="brand-text-main">Naman Jain</div>
+            <div class="brand-text-sub">DevOps · Cloud · Linux</div>
+          </div>
+        </div>
+
+        <nav>
+          <button class="nav-toggle" id="navToggle">Menu</button>
+          <ul id="navList">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <div class="pill">
+            <span class="dot"></span>
+            <span>Available for opportunities</span>
+          </div>
+          <button class="btn-ghost" id="themeToggle">Toggle theme</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="shell">
+        <!-- Hero -->
+        <section class="hero" id="about">
+          <div class="hero-left">
+            <div class="eyebrow">
+              <span class="eyebrow-badge">DevOps · Cloud · Linux</span>
+              <span class="eyebrow-text">Junior DevOps Intern · Sagar, India</span>
+            </div>
+
+            <h1 class="hero-title">
+              Hi, I'm <span class="highlight">Naman Jain</span><br />
+              I build reliable delivery pipelines.
+            </h1>
+
+            <p class="hero-subtitle">
+              DevOps fresher with hands-on exposure to Git, Docker, AWS EC2, Jenkins,
+              GitHub Actions and Linux environments. I love turning manual,
+              error-prone deployments into smooth, automated workflows.
+            </p>
+
+            <div class="hero-meta">
+              <span>📍 Sagar · India</span>
+              <span>📧 <a href="mailto:naman7564@gmail.com">naman7564@gmail.com</a></span>
+              <span>📱 <a href="tel:+918719939020">+91-87199-39020</a></span>
+            </div>
+
+            <div class="hero-actions">
+              <a class="btn-primary" href="https://www.linkedin.com/in/naman-jain-7a410b253" target="_blank" rel="noreferrer">
+                <span>Connect on LinkedIn</span>
+                <span class="arrow">↗</span>
+              </a>
+              <button class="btn-ghost" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">
+                Let's collaborate
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <div class="hero-card">
+              <div class="hero-card-main">
+                <h2 class="hero-card-title">Delivery, Monitoring & Automation</h2>
+                <p class="hero-card-text">
+                  Practical experience in setting up CI/CD, working with containers and
+                  monitoring application health across environments.
+                </p>
+                <div class="hero-card-tags">
+                  <span class="tag">Git & GitHub</span>
+                  <span class="tag">Docker</span>
+                  <span class="tag">Jenkins</span>
+                  <span class="tag">GitHub Actions</span>
+                </div>
+              </div>
+              <div class="hero-card-side">
+                <div class="metric-label">Hands-on Stack</div>
+                <div class="metric-value">DevOps</div>
+                <div class="metric-sub">AWS · Linux · Dynatrace</div>
+                <div class="metric-pill">
+                  <span class="metric-dot"></span>
+                  <span>Actively learning & building</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-strip">
+              <span>☁️ AWS EC2 deployments</span>
+              <span>📦 Containerization with Docker</span>
+              <span>🧪 CI/CD using Jenkins & GitHub Actions</span>
+              <span>📊 Dynatrace monitoring</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Skills -->
+        <section id="skills">
+          <div class="section-header">
+            <h2 class="section-title"><span>Skills</span> & Tools</h2>
+            <p class="section-subtitle">
+              A quick overview of the technologies I currently work with.
+            </p>
+          </div>
+
+          <div class="grid grid-3">
+            <article class="card">
+              <div class="card-inner">
+                <h3 class="card-label">DevOps & Cloud</h3>
+                <p class="section-subtitle">
+                  Building, deploying and monitoring modern applications.
+                </p>
+                <div class="pill-row">
+                  <span class="pill-sm">AWS EC2</span>
+                  <span class="pill-sm">Docker</span>
+                  <span class="pill-sm">Jenkins</span>
+                  <span class="pill-sm">GitHub Actions</span>
+                  <span class="pill-sm">Dynatrace</span>
+                  <span class="pill-sm">Monitoring</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <h3 class="card-label">Programming & Scripting</h3>
+                <p class="section-subtitle">
+                  Writing scripts and small tools to automate everyday tasks.
+                </p>
+                <div class="pill-row">
+                  <span class="pill-sm">Python</span>
+                  <span class="pill-sm">SQL</span>
+                  <span class="pill-sm">Shell scripting</span>
+                  <span class="pill-sm">Linux CLI</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <h3 class="card-label">Web & Frontend</h3>
+                <p class="section-subtitle">
+                  Simple, clean UIs for dashboards and personal projects.
+                </p>
+                <div class="pill-row">
+                  <span class="pill-sm">HTML</span>
+                  <span class="pill-sm">CSS</span>
+                  <span class="pill-sm">JavaScript</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Experience -->
+        <section id="experience">
+          <div class="section-header">
+            <h2 class="section-title"><span>Experience</span></h2>
+            <p class="section-subtitle">
+              Real-world exposure to DevOps tools and deployment workflows.
+            </p>
+          </div>
+
+          <div class="timeline">
+            <article class="timeline-item">
+              <h3 class="timeline-role">Junior DevOps Intern</h3>
+              <p class="timeline-meta">
+                WithAspire Netexis Private Limited · Sagar · 08/2023 – Present
+              </p>
+              <div class="timeline-body">
+                <p>
+                  At WithAspire Netexis, I contributed to multiple projects involving
+                  CI/CD automation, cloud deployments and performance monitoring.
+                  I worked with Git & GitHub for version control, helped containerize
+                  applications using Docker, and deployed workloads on AWS EC2.
+                </p>
+                <p style="margin-top: 0.4rem;">
+                  I also explored Dynatrace for monitoring application health and
+                  used Jenkins & GitHub Actions to build simple but effective
+                  pipelines that reduce manual deployment steps.
+                </p>
+              </div>
+              <div class="timeline-tags">
+                <span class="pill-sm">Git & GitHub</span>
+                <span class="pill-sm">Docker</span>
+                <span class="pill-sm">AWS EC2</span>
+                <span class="pill-sm">Jenkins</span>
+                <span class="pill-sm">GitHub Actions</span>
+                <span class="pill-sm">Dynatrace</span>
+                <span class="pill-sm">Linux</span>
+              </div>
+            </article>
+
+            <article class="timeline-item">
+              <h3 class="timeline-role">Bachelor of Computer Applications (BCA)</h3>
+              <p class="timeline-meta">
+                Manipal University Jaipur · 06/2023 – 06/2026
+              </p>
+              <div class="timeline-body">
+                <p>
+                  Pursuing BCA with a focus on programming, operating systems,
+                  networking and databases. Alongside academics, I regularly build
+                  small projects to apply concepts like SQL, scripting and web
+                  development in a practical way.
+                </p>
+              </div>
+              <div class="timeline-tags">
+                <span class="pill-sm">Python</span>
+                <span class="pill-sm">SQL</span>
+                <span class="pill-sm">OS & Networking</span>
+                <span class="pill-sm">Web projects</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact">
+          <div class="section-header">
+            <h2 class="section-title"><span>Contact</span></h2>
+            <p class="section-subtitle">
+              Want to discuss an opportunity, project or collaboration? Drop a note.
+            </p>
+          </div>
+
+          <div class="contact-card">
+            <div>
+              <h3 class="contact-title">Let's build something reliable together</h3>
+              <p class="contact-text">
+                I'm interested in entry-level DevOps / cloud roles, internships,
+                and freelance collaborations. Reach out with a short message about
+                what you're working on and how I can help.
+              </p>
+              <div class="contact-meta">
+                <span>📧 <a href="mailto:naman7564@gmail.com">naman7564@gmail.com</a></span>
+                <span>📱 <a href="tel:+918719939020">+91-87199-39020</a></span>
+                <span>🔗 <a href="https://www.linkedin.com/in/naman-jain-7a410b253" target="_blank" rel="noreferrer">LinkedIn profile</a></span>
+              </div>
+            </div>
+
+            <form class="contact-form" onsubmit="handleFormSubmit(event)">
+              <div class="field">
+                <label for="name">Your name</label>
+                <input id="name" type="text" placeholder="John Doe" required />
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="you@example.com" required />
+              </div>
+              <div class="field">
+                <label for="message">Message</label>
+                <textarea id="message" rows="3" placeholder="Tell me a bit about your project..." required></textarea>
+                <small>
+                  This is a front-end demo only — you can plug this into a real backend or form service later.
+                </small>
+              </div>
+              <button type="submit" class="btn-primary">
+                <span>Send message</span>
+                <span class="arrow">➤</span>
+              </button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <p>
+        © <span id="year"></span> Naman Jain · Built with HTML, CSS & JavaScript.
+      </p>
+    </footer>
+
+    <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
+  </div>
+
+  <script>
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const navList = document.getElementById('navList');
+
+    navToggle.addEventListener('click', () => {
+      navList.classList.toggle('open');
+    });
+
+    // Close nav when a link is clicked (on small screens)
+    navList.addEventListener('click', (e) => {
+      if (e.target.tagName === 'A') {
+        navList.classList.remove('open');
+      }
+    });
+
+    // Scroll to top button
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 260) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Simple theme toggle (light/dark body background variant)
+    const themeToggle = document.getElementById('themeToggle');
+
+    function applyTheme(theme) {
+      if (theme === 'light') {
+        document.body.style.background =
+          'radial-gradient(circle at top, #e5e7eb, #020617 75%)';
+      } else {
+        document.body.style.background =
+          'radial-gradient(circle at top, #111827, #020617 52%)';
+      }
+      localStorage.setItem('preferred-theme', theme);
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const current = localStorage.getItem('preferred-theme') || 'dark';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Load saved theme
+    (function initTheme() {
+      const saved = localStorage.getItem('preferred-theme') || 'dark';
+      applyTheme(saved);
+    })();
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Fake form submission handler
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) return;
+
+      alert(
+        `Thanks, ${name}! This demo form doesn't send emails yet,\n` +
+        `but you can contact me directly at naman7564@gmail.com.`
+      );
+
+      event.target.reset();
+    }
+  </script>
+</body>
+</html>
